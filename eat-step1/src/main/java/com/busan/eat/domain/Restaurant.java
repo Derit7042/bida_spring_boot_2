@@ -1,4 +1,4 @@
-package com.busan.domain;
+package com.busan.eat.domain;
 
 public class Restaurant {
 

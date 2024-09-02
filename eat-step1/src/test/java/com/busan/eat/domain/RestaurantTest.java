@@ -1,5 +1,6 @@
-package com.busan.domain;
+package com.busan.eat.domain;
 
+import com.busan.eat.domain.Restaurant;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
