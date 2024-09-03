@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -20,13 +21,16 @@ class RestaurantControllerTest {
     @Autowired
     private MockMvc mvc;
 
+    @SpyBean(RestaurantRepositoryImpl.class)
+    private RestaurantRepository restaurantRepository;
+
     @DisplayName("레스토랑 정보 조회 (목록")
     @Test
     void list() throws Exception {
         mvc.perform(get("/restaurants"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("\"name\":\"Bob zip\"")))
-                .andExpect(content().string(containsString("\"id\":1000")));
+                .andExpect(content().string(containsString("\"id\":1001")));
     }
 
     @DisplayName("레스토랑 상세 정보 조회 (단건)")
@@ -35,7 +39,8 @@ class RestaurantControllerTest {
         mvc.perform(get("/restaurants/1001"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("\"id\":1001")))
-                .andExpect(content().string(containsString("\"name\":\"Bob zip\"")));
+                .andExpect(content().string(containsString("\"name\":\"Bob zip\"")))
+                .andExpect(content().string(containsString("Kimchi")));
         mvc.perform(get("/restaurants/2002"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("\"id\":2002")))
